@@ -1,4 +1,7 @@
 # Required Permission
+import sys
+sys.coinit_flags = 2 # STA
+
 import clr # the pythonnet module.
 clr.AddReference(r'OpenHardwareMonitorLib') 
 
@@ -36,7 +39,11 @@ def checking(i):
 
     plt.cla()
     plt.ylim(30,80)
-    plt.plot(x_val,y_val,marker='o',markersize=2)
+
+    if len(y_val) < 30:
+        plt.plot(x_val,y_val,marker='o',markersize=2)
+    else:
+        plt.plot(x_val[-30:],y_val[-30:],marker='o',markersize=2)
     
     #print(f'CPU {len(temps)}개의 평균온도: {sum(temps)/len(temps)}도')
     if (average > 40):
